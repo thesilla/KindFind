@@ -7,14 +7,37 @@ package itemidchecker;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
  *
- * @author maxeg
+ * @author Max Gillman
  */
 public class ExcelController implements Initializable {
+
+    @FXML
+    private AnchorPane input;
+    @FXML
+    private AnchorPane descWords;
+    @FXML
+    private AnchorPane results;
+    @FXML
+    private Button inputUp;
+    @FXML
+    private Button inputDown;
+    @FXML
+    private Button resultsDown;
+    @FXML
+    private Button resultsUp;
+    @FXML
+    private TextField inputDisplay;
+    @FXML
+    private TextField resultsDisplay;
 
     /**
      * Initializes the controller class.
@@ -23,5 +46,5 @@ public class ExcelController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
-    //test comment
+    
 }
