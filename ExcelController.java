@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
@@ -20,12 +21,6 @@ import javafx.scene.layout.AnchorPane;
  */
 public class ExcelController implements Initializable {
 
-    @FXML
-    private AnchorPane input;
-    @FXML
-    private AnchorPane descWords;
-    @FXML
-    private AnchorPane results;
     @FXML
     private Button inputUp;
     @FXML
@@ -38,6 +33,12 @@ public class ExcelController implements Initializable {
     private TextField inputDisplay;
     @FXML
     private TextField resultsDisplay;
+    @FXML
+    private ListView<?> lvInput;
+    @FXML
+    private ListView<?> lvDesc;
+    @FXML
+    private ListView<?> lvResults;
 
     /**
      * Initializes the controller class.
