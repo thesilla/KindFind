@@ -87,10 +87,21 @@ public class ItemIDChecker {
         
         //SETTINGS
         //later these settings will be selected in a menu within GUI
+        //FIXME******----> input needs to be automatically set to count of words in document if number of words is LESS than number of results requested
         numResults = Integer.parseInt(JOptionPane.showInputDialog(null, 
  "What is the number of ordered matches?",
  "Enter the number of results you would like to display: ",
  JOptionPane.QUESTION_MESSAGE));
+        
+      
+            
+            
+            
+            
+        
+        
+        
+        
         
         spaces = JOptionPane.showInputDialog(null,
  "Check to consider spaces or no?",
@@ -401,13 +412,18 @@ public class ItemIDChecker {
                     this.codesList.add(new ItemIDCode(this.testStringVendor, totalScore, currentRow, currentColumn));
                     
                     
-                    
+                     
                     
                     //System.out.println("==========================================================================================================");
                 }
             }
         }
         Collections.sort(codesList);
+        
+        if (codesList.size()  <  numResults){
+            numResults = codesList.size();
+        }
+        
         for (int i = 0; i < numResults; ++i){
             
            System.out.print("SCORE: "+codesList.get(i).getTestTotal() + " :::: ");
@@ -420,7 +436,7 @@ public class ItemIDChecker {
 
     public static void main(String[] args) throws IOException {
        
-        ItemIDChecker iic = new ItemIDChecker("I am Maxwell Gillman"); // eventually this till take array. Then will build up to notepad file, then Excel file
+        ItemIDChecker iic = new ItemIDChecker("hello"); // eventually this till take array. Then will build up to notepad file, then Excel file
         iic.runExcel();
 
     }
