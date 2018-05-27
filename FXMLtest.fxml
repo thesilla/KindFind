@@ -8,9 +8,8 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="969.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="itemidchecker.FXMLtestController">
    <children>
-      <Button fx:id="button1" layoutX="471.0" layoutY="181.0" mnemonicParsing="false" onAction="#button1_clicked" text="run" />
-      <ListView fx:id="inputWords" layoutX="20.0" layoutY="30.0" prefHeight="357.0" prefWidth="200.0" />
-      <ListView fx:id="descWords" layoutX="233.0" layoutY="30.0" prefHeight="357.0" prefWidth="200.0" />
+      <Button fx:id="button1" layoutX="517.0" layoutY="111.0" mnemonicParsing="false" onAction="#button1_clicked" text="Load Input File" />
+      <ListView fx:id="inputWords" layoutX="20.0" layoutY="30.0" onMouseClicked="#inputWords_clicked" prefHeight="357.0" prefWidth="425.0" />
       <ListView fx:id="results" layoutX="708.0" layoutY="30.0" prefHeight="357.0" prefWidth="200.0" />
    </children>
 </AnchorPane>

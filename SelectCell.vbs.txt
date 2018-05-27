@@ -1,0 +1,8 @@
+Set objExcel = CreateObject("Excel.Application")
+Set objWorkbook = objExcel.Workbooks.Open("myExcel.xlsm")
+
+objExcel.Application.Run "myExcel.xlsm!MyMacroName" 
+objExcel.ActiveWorkbook.Close
+
+objExcel.Application.Quit
+WScript.Quit

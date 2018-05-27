@@ -42,37 +42,16 @@ import javafx.stage.FileChooser;
 public class ItemIDChecker {
 
     
-    /*
-    
-    @FXML
-    private Button run;
-    @FXML
-    private Button inputUp;
-    @FXML
-    private Button inputDown;
-    @FXML
-    private Button resultsDown;
-    @FXML
-    private Button resultsUp;
-    @FXML
-    private TextField inputDisplay;
-    @FXML
-    private TextField resultsDisplay;
-    @FXML
-    private ListView<?> lvInput;
-    @FXML
-    private ListView<?> lvDesc;
-    @FXML
-    private ListView<?> lvResults;
-    
-    */
+  
     
     
     
     //Key Data points:
     int numCharNotInARow;
     int maxCount;
-    File file;
+    File targetFile;
+    File inputFile;
+    
     String spaces;
     
     int numResults;
@@ -86,7 +65,11 @@ public class ItemIDChecker {
     Boolean IDsEqual = false;
     String testStringP21;
     String testStringVendor;
+    
     JFileChooser jfc;
+    
+    
+    BufferedReader br;
     String vendorFileName;
     double totalScore;
 
@@ -125,9 +108,9 @@ public class ItemIDChecker {
     
     public ItemIDChecker(String P21ID)  throws IOException  {
 
-        P21Ascii = new int[256]; //95 total characters needing checking
-        VendorAscii = new int[256]; //95 total characters needing checking
-        diffArray = new int[256];
+        //P21Ascii = new int[256]; //95 total characters needing checking
+        //VendorAscii = new int[256]; //95 total characters needing checking
+        //diffArray = new int[256];
         testStringP21 = P21ID;
 
         
@@ -154,21 +137,34 @@ public class ItemIDChecker {
  "Enter y or n",
  JOptionPane.QUESTION_MESSAGE);
         
+        
+        
+    
+            
+       
+        
+        
+        // inputWords.getItems().add(iic.codesList.get(i).getCode());
+        
+        
+        
+        
+        
        
         jfc = new JFileChooser();
         //vendorFileName = jfc.getInitialFileName();
         
-        jfc.showDialog(null, "Please Select the File: ");
+        jfc.showDialog(null, "Please Select the File you would like to search: ");
         jfc.setVisible(true);
         
         
-        file = jfc.getSelectedFile();
-        fr = new FileReader(file);
+        targetFile = jfc.getSelectedFile();
+        
         //"C:\\Users\\Max Gillman\\School Stuff\\Independent Projects\\ItemIDChecker\\test.xlsx"
         //C:\Users\Max Gillman\School Stuff\Independent Projects\ItemIDChecker\test.xlsx
         //System.out.println(vendorFileName);
 
-        fis = new FileInputStream(file);//in the future this will be JOptionPane input
+        fis = new FileInputStream(targetFile);//in the future this will be JOptionPane input
         
         try{
         wb = new XSSFWorkbook(fis); //or new XSSFWorkbook("/somepath/test.xlsx")

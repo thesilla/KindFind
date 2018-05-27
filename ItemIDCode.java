@@ -11,15 +11,12 @@ import java.util.Comparator;
  *
  * @author maxeg
  */
+
+//THIS IS A POTENTIAL MATCHING CODE RESULT FOUND IN SEARCHABLE FILE
 public class ItemIDCode implements Comparable<ItemIDCode> {
 
     private String code;
     
-    
-    private int test1Score;//not used
-    private int test2Score;//not used
-    private int test3Score;//not used
-    private int test4Score;//not used
     
     
     private double testTotal;
@@ -70,37 +67,9 @@ public class ItemIDCode implements Comparable<ItemIDCode> {
         this.code = code;
     }
 
-    public int getTest1Score() {
-        return test1Score;
-    }
-
-    public void setTest1Score(int test1Score) {
-        this.test1Score = test1Score;
-    }
-
-    public int getTest2Score() {
-        return test2Score;
-    }
-
-    public void setTest2Score(int test2Score) {
-        this.test2Score = test2Score;
-    }
-
-    public int getTest3Score() {
-        return test3Score;
-    }
-
-    public void setTest3Score(int test3Score) {
-        this.test3Score = test3Score;
-    }
-
-    public int getTest4Score() {
-        return test4Score;
-    }
-
-    public void setTest4Score(int test4Score) {
-        this.test4Score = test4Score;
-    }
+    
+    
+    
 
     public double getTestTotal() {
         return testTotal;
@@ -110,6 +79,7 @@ public class ItemIDCode implements Comparable<ItemIDCode> {
         this.testTotal = testTotal;
     }
     
+    //indicates this object should be measured by testTotal
         @Override
     public int compareTo(ItemIDCode b) {
 
