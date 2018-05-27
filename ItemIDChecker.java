@@ -19,11 +19,20 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;//for xls
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;//for xlsx
 import org.apache.poi.hssf.util.CellReference;
 import java.io.*;
+import java.net.URL;
 import javax.swing.*;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 
 /**
@@ -32,6 +41,34 @@ import javafx.stage.FileChooser;
  */
 public class ItemIDChecker {
 
+    
+    /*
+    
+    @FXML
+    private Button run;
+    @FXML
+    private Button inputUp;
+    @FXML
+    private Button inputDown;
+    @FXML
+    private Button resultsDown;
+    @FXML
+    private Button resultsUp;
+    @FXML
+    private TextField inputDisplay;
+    @FXML
+    private TextField resultsDisplay;
+    @FXML
+    private ListView<?> lvInput;
+    @FXML
+    private ListView<?> lvDesc;
+    @FXML
+    private ListView<?> lvResults;
+    
+    */
+    
+    
+    
     //Key Data points:
     int numCharNotInARow;
     int maxCount;
@@ -75,9 +112,18 @@ public class ItemIDChecker {
 
     
     ArrayList<ItemIDCode> codesList = new ArrayList<ItemIDCode>(); //maybe need to determine number of occupied cells first then figure out max
+
+    public int getNumResults() {
+        return numResults;
+    }
+
+    public void setNumResults(int numResults) {
+        this.numResults = numResults;
+    }
     
     
-    public ItemIDChecker(String P21ID) throws IOException {
+    
+    public ItemIDChecker(String P21ID)  throws IOException  {
 
         P21Ascii = new int[256]; //95 total characters needing checking
         VendorAscii = new int[256]; //95 total characters needing checking
@@ -434,11 +480,10 @@ public class ItemIDChecker {
 
     }
 
-    public static void main(String[] args) throws IOException {
-       
-        ItemIDChecker iic = new ItemIDChecker("hello"); // eventually this till take array. Then will build up to notepad file, then Excel file
-        iic.runExcel();
-
-    }
+    
+    
+    
+    
+   
 
 }
