@@ -4,8 +4,6 @@ package itemidchecker;
 //decide what input will be (notepad txt file, excel, ect.....maybe all? pick one and add more later
 //decide how results will be displayed (excel file
 //1
-
-
 //Completed Scores:
 //1. Edit distance
 //2. Total Max total characters from original string in a row/or not in a row within VendorID
@@ -41,21 +39,16 @@ import javafx.stage.FileChooser;
  */
 public class ItemIDChecker {
 
-    
-  
-    
-    
-    
     //Key Data points:
     int numCharNotInARow;
     int maxCount;
     File targetFile;
     File inputFile;
-    
+
     String spaces;
-    
+
     int numResults;
-    
+
     int currentRow;
     int currentColumn;
 
@@ -65,10 +58,7 @@ public class ItemIDChecker {
     Boolean IDsEqual = false;
     String testStringP21;
     String testStringVendor;
-    
-    JFileChooser jfc;
-    
-    
+
     BufferedReader br;
     String vendorFileName;
     double totalScore;
@@ -80,9 +70,9 @@ public class ItemIDChecker {
     int vendorStringLength;
     char[] P21StringToCharArray;
     int P21StringLength;
-    
+
     FileReader fr;
-    
+
     int SubCheckCharP21;
     int SubCheckCharVendor;
 
@@ -93,7 +83,6 @@ public class ItemIDChecker {
     FileInputStream fis;
     Workbook wb;
 
-    
     ArrayList<ItemIDCode> codesList = new ArrayList<ItemIDCode>(); //maybe need to determine number of occupied cells first then figure out max
 
     public int getNumResults() {
@@ -103,134 +92,88 @@ public class ItemIDChecker {
     public void setNumResults(int numResults) {
         this.numResults = numResults;
     }
-    
-    
-    
-    public ItemIDChecker(String P21ID)  throws IOException  {
+
+    public ItemIDChecker(String P21ID, File file) throws IOException {
 
         //P21Ascii = new int[256]; //95 total characters needing checking
         //VendorAscii = new int[256]; //95 total characters needing checking
         //diffArray = new int[256];
         testStringP21 = P21ID;
 
-        
         //SETTINGS
         //later these settings will be selected in a menu within GUI
         //FIXME******----> input needs to be automatically set to count of words in document if number of words is LESS than number of results requested
-        numResults = Integer.parseInt(JOptionPane.showInputDialog(null, 
- "What is the number of ordered matches?",
- "Enter the number of results you would like to display: ",
- JOptionPane.QUESTION_MESSAGE));
-        
-      
-            
-            
-            
-            
-        
-        
-        
-        
-        
+        numResults = Integer.parseInt(JOptionPane.showInputDialog(null,
+                "What is the number of ordered matches?",
+                "Enter the number of results you would like to display: ",
+                JOptionPane.QUESTION_MESSAGE));
+
         spaces = JOptionPane.showInputDialog(null,
- "Check to consider spaces or no?",
- "Enter y or n",
- JOptionPane.QUESTION_MESSAGE);
-        
-        
-        
-    
-            
-       
-        
-        
-        // inputWords.getItems().add(iic.codesList.get(i).getCode());
-        
-        
-        
-        
-        
-       
-        jfc = new JFileChooser();
-        //vendorFileName = jfc.getInitialFileName();
-        
-        jfc.showDialog(null, "Please Select the File you would like to search: ");
-        jfc.setVisible(true);
-        
-        
-        targetFile = jfc.getSelectedFile();
-        
+                "Check to consider spaces or no?",
+                "Enter y or n",
+                JOptionPane.QUESTION_MESSAGE);
+
+        targetFile = file;
+
         //"C:\\Users\\Max Gillman\\School Stuff\\Independent Projects\\ItemIDChecker\\test.xlsx"
         //C:\Users\Max Gillman\School Stuff\Independent Projects\ItemIDChecker\test.xlsx
         //System.out.println(vendorFileName);
-
         fis = new FileInputStream(targetFile);//in the future this will be JOptionPane input
-        
-        try{
-        wb = new XSSFWorkbook(fis); //or new XSSFWorkbook("/somepath/test.xlsx")
-        Sheet sheet = wb.getSheetAt(0);
-        FormulaEvaluator evaluator = wb.getCreationHelper().createFormulaEvaluator();
 
-        
+        try {
+            wb = new XSSFWorkbook(fis); //or new XSSFWorkbook("/somepath/test.xlsx")
+            Sheet sheet = wb.getSheetAt(0);
+            FormulaEvaluator evaluator = wb.getCreationHelper().createFormulaEvaluator();
+
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "File load Error!", "File Error", JOptionPane.ERROR_MESSAGE);
-        
-// suppose your formula is in A1
-        //CellReference cellReference = new CellReference("A1");
-       // Row sheetRow = sheet.getRow(cellReference.getRow());
-       // Column cell = row.getCell(cellReference.getCol());
 
-        //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+// suppose your formula is in A1
+            //CellReference cellReference = new CellReference("A1");
+            // Row sheetRow = sheet.getRow(cellReference.getRow());
+            // Column cell = row.getCell(cellReference.getCol());
+            //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        }
     }
-    }
+
     /**
      * @param args the command line arguments
      */
-    
-    public void prepCell(Cell c){
-        
+
+    public void prepCell(Cell c) {
+
         //get cell value
-        testStringVendor = c.getStringCellValue(); 
+        testStringVendor = c.getStringCellValue();
         //P21 String already defined in constructor
-        
+
         //convert to lower case
-        testStringP21 = testStringP21.toLowerCase(); 
-        testStringVendor = testStringVendor.toLowerCase(); 
-        
+        testStringP21 = testStringP21.toLowerCase();
+        testStringVendor = testStringVendor.toLowerCase();
+
         //IF spaces = y,
         //REMOVE SPACES from IDs 
-        
-        if (spaces.equalsIgnoreCase("n")){
+        if (spaces.equalsIgnoreCase("n")) {
             testStringP21 = testStringP21.replaceAll("\\s+", "");
-        testStringVendor = testStringVendor.replaceAll("\\s+", "");
+            testStringVendor = testStringVendor.replaceAll("\\s+", "");
         }
-        
-        
-         //add to char arrays
+
+        //add to char arrays
         P21StringToCharArray = testStringP21.toCharArray();
         P21StringLength = P21StringToCharArray.length;
         VendorStringToCharArray = testStringVendor.toCharArray();
-        
+
         //reset variables to 0
         differenceInCounts = 0;
         int SubCheckCharP21 = 0;
         int SubCheckCharVendor = 0;
-        
-        
-        
-        
-        
-        
+
     }
-    
+
     public int immediateEquality(String s) {
-
-        
-
 
         if (testStringP21.equals(testStringVendor)) {
             IDsEqual = true;
-            //System.out.println("IDs are equal right off the bat!");
+            
             return 100000;
 
         }
@@ -312,14 +255,13 @@ public class ItemIDChecker {
         //***********************************************************************************************************************************************
         //****************END OF CHECK TOTAL MATCHING CHARACTERS REGARDLESS OF ORDER*************
         //
-        */
- 
+         */
+
         //
 //*****************inARowCount*****************************************************************************************************************
         //***********************************************************************************************************************************************
         //hello vs xxxhelloxx
         inARowCount = 0; // starts at -1 because it takes two numbers to make 1 in a row
-
 
         maxCount = 0;
 
@@ -360,29 +302,22 @@ public class ItemIDChecker {
             //System.out.println("InARow Count " + P21Char + " :" + (maxCount + 1));
         }
 
-        if (maxCount > 0){
-            maxCount = maxCount +1;
+        if (maxCount > 0) {
+            maxCount = maxCount + 1;
         }
-        
+
         numCharNotInARow = P21StringLength - (maxCount);
 
         //System.out.println("Total In-A-Row count: " + (maxCount) + " out of "+P21StringLength + " possible characters." );
         //System.out.println("Num Characters NOT in a row within Vendor String: " + numCharNotInARow);
         //System.out.println("InARow Count: " + inARowCount);
         //System.out.println("totalInARowCount: " + totalInARowCount);
-
         //***********************************************************************************************************************************************
         //*************************************************************************************************************************************************
- 
-        
-        
-        
-        
         //TEMP - CHECKING NEW STRINGS
-
         //System.out.println(
-              //  "P21 ID: " + testStringP21);
-       // System.out.println(
+        //  "P21 ID: " + testStringP21);
+        // System.out.println(
         //        "vendor ID: " + testStringVendor);
         //*****************************************************************************************************
 
@@ -398,7 +333,7 @@ public class ItemIDChecker {
         }
          */
         //System.out.println("INDEX: " + (double)maxCount/(double)P21StringLength);
-        return (double)maxCount/(double)P21StringLength;
+        return (double) maxCount / (double) P21StringLength;
     }
 
     public static int min(int... numbers) {
@@ -430,56 +365,45 @@ public class ItemIDChecker {
         }
         //System.out.println("The Edit Distance is: " + dp[testStringP21.length()][y.length()]);
         return dp[testStringP21.length()][y.length()];
-        
 
     }
+
     //Run the Excel version of the program.
     public void runExcel() {
 
         for (Sheet sheet : wb) {
             for (Row row : sheet) {
                 for (Cell cell : row) {
-                    
+
                     //set VemdorID, clean up string for analysis
                     this.prepCell(cell);
                     //System.out.println("Vendor code: " + testStringVendor);
-                    
-                    
+
                     //Run the different tests, STORE RESULTS ACCORDINGLY
-                   
-                    totalScore = this.charTotalsCheck(testStringVendor) - (double)+this.editDistance(testStringVendor) + this.immediateEquality(testStringVendor);
+                    totalScore = this.charTotalsCheck(testStringVendor) - (double) +this.editDistance(testStringVendor) + this.immediateEquality(testStringVendor);
                     currentRow = cell.getRowIndex();
                     currentColumn = cell.getColumnIndex();
-                    
+
                     this.codesList.add(new ItemIDCode(this.testStringVendor, totalScore, currentRow, currentColumn));
-                    
-                    
-                     
-                    
+
                     //System.out.println("==========================================================================================================");
                 }
             }
         }
         Collections.sort(codesList);
-        
-        if (codesList.size()  <  numResults){
+
+        if (codesList.size() < numResults) {
             numResults = codesList.size();
         }
-        
-        for (int i = 0; i < numResults; ++i){
-            
-           System.out.print("SCORE: "+codesList.get(i).getTestTotal() + " :::: ");
-           System.out.print("Cell location: (" + codesList.get(i).getRowNum() + ",");
-           System.out.print(codesList.get(i).getColNum() + ") --> ID Number: ");
-           System.out.println(codesList.get(i).getCode());
+
+        for (int i = 0; i < numResults; ++i) {
+
+            System.out.print("SCORE: " + codesList.get(i).getTestTotal() + " :::: ");
+            System.out.print("Cell location: (" + codesList.get(i).getRowNum() + ",");
+            System.out.print(codesList.get(i).getColNum() + ") --> ID Number: ");
+            System.out.println(codesList.get(i).getCode());
         }
 
     }
-
-    
-    
-    
-    
-   
 
 }

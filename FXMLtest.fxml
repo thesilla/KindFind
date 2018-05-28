@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
@@ -8,8 +11,32 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="969.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="itemidchecker.FXMLtestController">
    <children>
-      <Button fx:id="button1" layoutX="517.0" layoutY="111.0" mnemonicParsing="false" onAction="#button1_clicked" text="Load Input File" />
-      <ListView fx:id="inputWords" layoutX="20.0" layoutY="30.0" onMouseClicked="#inputWords_clicked" prefHeight="357.0" prefWidth="425.0" />
-      <ListView fx:id="results" layoutX="708.0" layoutY="30.0" prefHeight="357.0" prefWidth="200.0" />
+      <Button fx:id="button1" layoutX="529.0" layoutY="98.0" mnemonicParsing="false" onAction="#button1_clicked" text="Load Input File" textFill="#1b0ab2" />
+      <ListView fx:id="inputWords" layoutX="20.0" layoutY="53.0" onMouseClicked="#inputWords_clicked" prefHeight="323.0" prefWidth="422.0" />
+      <ListView fx:id="results" layoutX="707.0" layoutY="53.0" prefHeight="323.0" prefWidth="200.0" />
+      <Button fx:id="button2" layoutX="529.0" layoutY="165.0" mnemonicParsing="false" onAction="#button2_clicked" prefHeight="25.0" prefWidth="95.0" text="Load Excel File" textFill="#cd0909" />
+      <Label layoutX="196.0" layoutY="15.0" text="Input List">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="750.0" layoutY="15.0" text="Search Results">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="fileNameField" editable="false" layoutX="457.0" layoutY="198.0" prefHeight="25.0" prefWidth="239.0" />
+      <TextField fx:id="inputFileNameField" layoutX="456.0" layoutY="134.0" prefHeight="25.0" prefWidth="239.0" />
+      <Label layoutX="355.0" layoutY="11.0" text="KINDFIND EXCEL SEARCH" textAlignment="CENTER" textFill="#188533">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <effect>
+            <InnerShadow />
+         </effect>
+      </Label>
+      <CheckBox layoutX="491.0" layoutY="241.0" mnemonicParsing="false" text="Include spaces in search" />
+      <TextField layoutX="523.0" layoutY="293.0" prefHeight="25.0" prefWidth="86.0" promptText="Enter value" />
+      <Label layoutX="518.0" layoutY="270.0" text="Results to Display:" underline="true" />
    </children>
 </AnchorPane>
